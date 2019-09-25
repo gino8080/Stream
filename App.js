@@ -1,23 +1,60 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation"
+import { Logs, AppLoading } from "expo";
+
+import * as Font from 'expo-font';
+import { Ionicons } from '@expo/vector-icons';
+
+//importo i componenti pagine
 import Login from "./pages/login/login";
+import Register from "./pages/login/register";
+import Reset from "./pages/login/reset";
 
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Login />
-    </View>
-
-  );
+if (__DEV__) {
+  // https://github.com/expo/expo/issues/2623#issuecomment-441364587
+  const isRemoteDebuggingEnabled = typeof atob !== 'undefined';
+  if (isRemoteDebuggingEnabled) {
+    Logs.disableExpoCliLogging();
+  } else {
+    Logs.enableExpoCliLogging();
+  }
+  console.disableYellowBox = true;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const AppNavigator = createStackNavigator({
+  "login": Login,
+  "register": Register,
+  "reset": Reset
+}, {
+  initialRouteName: "login"
+})
+
+
+const AppContainer = createAppContainer(AppNavigator)
+
+export default function App() {
+
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    //appena la app si carica === al vecchio ComponentDidMount
+    loadFonts();
+  }, [])
+
+
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      ...Ionicons.font
+    })
+    setIsReady(true)
+  }
+
+  if (!isReady) return <AppLoading />
+
+  return (<AppContainer />);
+
+} 
