@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation"
+import { createBottomTabNavigator } from "react-navigation-tabs"
+import { createAppContainer, createSwitchNavigator } from "react-navigation"
 import { Logs, AppLoading } from "expo";
 
 import * as Font from 'expo-font';
@@ -11,6 +12,9 @@ import { Ionicons } from '@expo/vector-icons';
 import Login from "./pages/login/login";
 import Register from "./pages/login/register";
 import Reset from "./pages/login/reset";
+import Profile from "./pages/profile/";
+import Search from "./pages/search/index";
+import Bookmarks from "./pages/bookmarks/index";
 
 if (__DEV__) {
   // https://github.com/expo/expo/issues/2623#issuecomment-441364587
@@ -23,7 +27,9 @@ if (__DEV__) {
   console.disableYellowBox = true;
 }
 
-const AppNavigator = createStackNavigator({
+
+
+const LoginStack = createStackNavigator({
   "login": Login,
   "register": Register,
   "reset": Reset
@@ -31,8 +37,22 @@ const AppNavigator = createStackNavigator({
   initialRouteName: "login"
 })
 
+const TabNavigator = createBottomTabNavigator({
+  "profile": Profile,
+  "search": Search,
+  "bookmarks": Bookmarks
+}, {
+  "initialRouteName": "search"
+})
 
-const AppContainer = createAppContainer(AppNavigator)
+const MainStack = createSwitchNavigator({
+  "auth": LoginStack,
+  "home": TabNavigator
+}, {
+  initialRouteName: "auth"
+})
+
+const AppContainer = createAppContainer(MainStack)
 
 export default function App() {
 

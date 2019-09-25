@@ -11,8 +11,8 @@ const Login = (props) => {
       <Button onPress={() => props.navigation.navigate("register")}>
         <Text>VAI A REGISTER</Text>
       </Button>
-      <Button onPress={() => props.navigation.navigate("reset")}>
-        <Text>VAI A RESET</Text>
+      <Button onPress={() => props.navigation.navigate("home")}>
+        <Text>ENTRA</Text>
       </Button>
     </View>
   )
