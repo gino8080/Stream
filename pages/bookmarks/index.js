@@ -1,12 +1,17 @@
+import { Container, Content } from 'native-base';
 import React from "react";
-import { View, Text } from "react-native";
+import CommonHeader from "../../components/CommonHeader";
 
 const Bookmarks = (props) => {
 
   return (
-    <View>
-      <Text>Bookmarks PAGE</Text>
-    </View>
+    <Container>
+
+      <CommonHeader title="BOOKMARKS" />
+
+      <Content></Content>
+    </Container>
+
   )
 
 }
