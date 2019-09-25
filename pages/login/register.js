@@ -7,7 +7,7 @@ const Register = (props) => {
   return (
     <Container>
 
-      <CommonHeader title="LOGIN" />
+      <CommonHeader title="SIGNUP" hasBack />
 
       <Content>
         <Text>CIAO</Text>
