@@ -27,8 +27,6 @@ if (__DEV__) {
   console.disableYellowBox = true;
 }
 
-
-
 const LoginStack = createStackNavigator({
   "login": Login,
   "register": Register,
