@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import { SafeAreaView, StatusBar, View, Platform } from "react-native"
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs"
 import { createAppContainer, createSwitchNavigator } from "react-navigation"
@@ -32,7 +32,8 @@ const LoginStack = createStackNavigator({
   "register": Register,
   "reset": Reset
 }, {
-  initialRouteName: "login"
+  initialRouteName: "login",
+  "headerMode": "none"
 })
 
 const TabNavigator = createBottomTabNavigator({
@@ -73,6 +74,11 @@ export default function App() {
 
   if (!isReady) return <AppLoading />
 
-  return (<AppContainer />);
+  return (
+    <View style={{ flex: 1 }}>
+      <StatusBar translucent hidden={Platform.OS === "android"} />
+      <AppContainer />
+    </View>
+  );
 
 } 

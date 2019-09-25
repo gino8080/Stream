@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
-import { Button, Text, Container, Header, Content, Form, Item, Input, Label } from 'native-base';
+import { Button, Text, Container, Header, Content, Form, Item, Input, Label, Left, Icon, Right, Body, Title } from 'native-base';
+import CommonHeader from "../../components/CommonHeader"
 
 const Login = (props) => {
 
@@ -36,7 +37,9 @@ const Login = (props) => {
 
   return (
     <Container>
-      <Header />
+
+      <CommonHeader title="LOGIN" />
+
       <Content>
 
         <Form>
