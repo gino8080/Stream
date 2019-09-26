@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
-import { Button, Text, Container, Header, Content, Form, Item, Input, Label, Left, Icon, Right, Body, Title } from 'native-base';
+import { Button, Text, Container, Header, Content, Form, Item, Input, Label, Left, Icon, Right, Body, Title, Footer, FooterTab } from 'native-base';
 import CommonHeader from "../../components/CommonHeader"
 
 const Login = (props) => {
@@ -40,34 +40,45 @@ const Login = (props) => {
 
       <CommonHeader title="LOGIN" />
 
-      <Content>
+      <Content padder>
 
         <Form>
           <Item >
-            <Label>Username</Label>
-            <Input value={user.username}
+
+            <Input
+              placeholder="username"
+              value={user.username}
               onChangeText={(_username) => { changedUsername(_username) }} />
           </Item>
           <Item last>
-            <Label>Password</Label>
-            <Input value={user.password}
+
+            <Input
+              placeholder="password"
+              value={user.password}
               onChangeText={(_password) => { changedPassword(_password) }} />
           </Item>
-          <Item>
-            <Button onPress={doLogin}>
-              <Text>Accedi</Text>
-            </Button>
-          </Item>
-          <Text>{JSON.stringify(user, "", "\t")}</Text>
+
+
+
+          {/* <Text>{JSON.stringify(user, "", "\t")}</Text> */}
         </Form>
 
-        <Button onPress={() => props.navigation.navigate("register")}>
-          <Text>VAI A REGISTER</Text>
+        <Button onPress={doLogin} success block>
+          <Text>Accedi</Text>
         </Button>
-        <Button onPress={() => props.navigation.navigate("home")}>
-          <Text>ENTRA</Text>
+        <Button onPress={() => props.navigation.navigate("reset")} transparent>
+          <Text>Hai dimenticato la password?</Text>
         </Button>
       </Content>
+
+      <Footer>
+        <FooterTab>
+          <Button onPress={() => props.navigation.navigate("register")} >
+            <Text>Registrati</Text>
+          </Button>
+        </FooterTab>
+      </Footer>
+
     </Container>
 
   )

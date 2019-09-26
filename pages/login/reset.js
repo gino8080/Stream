@@ -1,12 +1,18 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Button, Text, Container, Header, Content, Form, Item, Input, Label, Left, Icon, Right, Body, Title } from 'native-base';
+import CommonHeader from "../../components/CommonHeader";
 
 const Reset = (props) => {
 
   return (
-    <View>
-      <Text>Reset PAGE</Text>
-    </View>
+    <Container>
+
+      <CommonHeader title="Reset password" hasBack />
+
+      <Content>
+        <Text>BRAVO</Text>
+      </Content>
+    </Container>
   )
 
 }
