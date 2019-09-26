@@ -29,7 +29,7 @@ const Register = (props) => {
 
     console.log("permission status", status)
 
-    setHasCameraPermission(status === "granted*")
+    setHasCameraPermission(status === "granted")
   }
 
 
