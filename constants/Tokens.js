@@ -1,0 +1,4 @@
+export default {
+  access_token: "BQCG5V6DknR-nt-JBL54Ek5fDNexoqq7I8AYVh0nZd0hhNRWK0luWroE4F6xV-7Qm1fm9evMKMo_WmpguwVUEnm2teNfOO_IKQcwbIj-V56BjMht2ohBzA2hj5tBoUDVmB8-jHmeIn3Qn_1VyKyNRmVn5Mc45027oxXUgKD10g8tOpyjomvu",
+  "refresh_token": "AQB1I_ym_nwnCNy3ZYXaklN8TnyvuId3BlGU3oea_yGNIkXafZJKLu7jmB3PUrnFv13LLjvbc6xR9hJ5rGysOAN4ayPPpa5AJXNP1_M8tW6DW8QQEL03nEoWNw-nDN_lVlQ6Vw"
+}
