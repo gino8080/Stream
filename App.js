@@ -7,7 +7,7 @@ import { Logs, AppLoading } from "expo";
 import { Root } from "native-base"
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-
+import CommonColors from "./constants/CommonColors"
 //importo i componenti pagine
 import Login from "./pages/login/login";
 import Register from "./pages/login/register";
@@ -70,7 +70,7 @@ const TabNavigator = createBottomTabNavigator({
     },
   }),
   tabBarOptions: {
-    activeTintColor: 'tomato',
+    activeTintColor: CommonColors.primary,
     inactiveTintColor: 'gray',
   },
 })
