@@ -1,7 +1,8 @@
 import { Camera } from 'expo-camera';
 //const CommonHeader = require("../../components/CommonHeader")
 import * as Permissions from 'expo-permissions';
-import { Button, Container, Content, Spinner, Text, Thumbnail } from 'native-base';
+import { Button, Container, Content, Spinner, Text, Thumbnail, ActionSheet } from 'native-base';
+import * as ImagePicker from "expo-image-picker";
 import React from "react";
 import { Linking, Alert } from "react-native";
 import CommonHeader from "../../components/CommonHeader";
@@ -18,7 +19,7 @@ const Register = (props) => {
   }, [])
 
   const initCamera = async () => {
-    const perm = await Permissions.askAsync(Permissions.CAMERA);
+    const perm = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     const { status } = perm;
 
     console.log("permission status", status)
@@ -34,12 +35,36 @@ const Register = (props) => {
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      { text: 'Vai', onPress: () => Linking.openURL('app-settings:') },
+      {
+        text: 'Vai', onPress: () => {
+          console.log("premuto VAI a settings");
+          Linking.openURL('app-settings:');
+        }
+      },
     ])
 
   }
 
   startCamera = () => {
+    ActionSheet.show(
+      {
+        options: ['Scatta foto', 'scegli da galleria', 'Annulla'],
+        cancelButtonIndex: 2,
+        //destructiveButtonIndex: 3
+      },
+      (indexSelected) => {
+        console.log("Premuta voce index", indexSelected);
+        if (indexSelected === 0) {
+          //scatta foto
+          ImagePicker.launchCameraAsync()
+        }
+        else if (indexSelected === 1) {
+          //Scegli da galleria
+          ImagePicker.launchImageLibraryAsync()
+        }
+      }
+
+    )
 
   }
 

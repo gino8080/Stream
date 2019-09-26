@@ -4,7 +4,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs"
 import { createAppContainer, createSwitchNavigator } from "react-navigation"
 import { Logs, AppLoading } from "expo";
-
+import { Root } from "native-base"
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -105,10 +105,12 @@ export default function App() {
   if (!isReady) return <AppLoading />
 
   return (
-    <View style={{ flex: 1 }}>
-      <StatusBar translucent hidden={Platform.OS === "android"} />
-      <AppContainer />
-    </View>
+    <Root>
+      <View style={{ flex: 1 }}>
+        <StatusBar translucent hidden={Platform.OS === "android"} />
+        <AppContainer />
+      </View>
+    </Root>
   );
 
 } 
