@@ -18,9 +18,10 @@ const defaultItem =
 
 const ListItem = ({ item = defaultItem }) => {
 
+  const imageUrl = item.icons ? item.icons[0].url : item.images[0].url
   return (
     <Container style={{ width: 200, height: "auto", ...GlobalStyle.bordered }}>
-      <Image source={{ uri: item.icons[0].url }} style={{ flex: 1 }} />
+      <Image source={{ uri: imageUrl }} style={{ flex: 1 }} />
       <Text>{item.name}</Text>
     </Container>
   )

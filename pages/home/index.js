@@ -9,7 +9,7 @@ import ListItem from "./ListItem";
 const Home = (props) => {
 
   const [categories, setCategories] = React.useState([])
-  const [topLists, setTopLists] = React.useState([])
+  const [newReleases, setNewReleases] = React.useState([])
 
   React.useEffect(() => {
     getContents();
@@ -20,6 +20,11 @@ const Home = (props) => {
     Services.categories().then(_categories => {
       console.log("_categories", _categories)
       setCategories(_categories)
+    })
+
+    Services.newReleases().then(_newReleases => {
+      console.log("_newReleases", _newReleases)
+      setNewReleases(_newReleases)
     })
   }
   return (
@@ -43,12 +48,8 @@ const Home = (props) => {
           <FlatList
             style={{ flex: 1, ...GlobalStyle.bordered }}
             horizontal
-            data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-            renderItem={({ item }) => (
-              <Container style={{ width: 200, height: 100, ...GlobalStyle.bordered }}>
-                <Text>{item}</Text>
-              </Container>
-            )
+            data={newReleases}
+            renderItem={({ item }) => (<ListItem item={item} />)
             }
           />
         </Container>
