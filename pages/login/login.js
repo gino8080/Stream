@@ -18,7 +18,7 @@ const Login = (props) => {
       user.password.toLowerCase().trim() === "password") {
       //login ok!
       Storage.set("isLogged", true);
-      props.navigation.navigate("home")
+      props.navigation.navigate("tabs")
     } else {
       Alert.alert("Errore", "Attenzione credenziali errate!")
     }

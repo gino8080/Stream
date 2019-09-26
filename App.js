@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StatusBar, View, Platform } from "react-native"
+import { SafeAreaView, StatusBar, View, Platform, Image } from "react-native"
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs"
 import { createAppContainer, createSwitchNavigator } from "react-navigation"
 import { Logs, AppLoading } from "expo";
 import { Root } from "native-base"
 import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import CommonColors from "./constants/CommonColors"
 //importo i componenti pagine
 import Login from "./pages/login/login";
@@ -15,6 +15,7 @@ import Reset from "./pages/login/reset";
 import Profile from "./pages/profile/";
 import Search from "./pages/search/index";
 import Bookmarks from "./pages/bookmarks/index";
+import Home from "./pages/home";
 import AuthManager from "./pages/AuthManager"
 
 if (__DEV__) {
@@ -38,9 +39,10 @@ const LoginStack = createStackNavigator({
 })
 
 const TabNavigator = createBottomTabNavigator({
-  "profile": Profile,
+  "home": Home,
   "search": Search,
-  "bookmarks": Bookmarks
+  "bookmarks": Bookmarks,
+  "profile": Profile
 }, {
   "initialRouteName": "search",
   defaultNavigationOptions: ({ navigation }) => ({
@@ -50,16 +52,21 @@ const TabNavigator = createBottomTabNavigator({
       let iconName = "ios-information-circle";
 
       switch (routeName) {
+        case "home":
+          iconName = "ios-home"
+          //return <Image source={require("./assets/images/user_placeholder.png")} />
+          break;
+
         case "profile":
           iconName = `ios-information-circle${focused ? '' : '-outline'}`;
           break;
 
         case "search":
-          iconName = `ios-options`;
+          iconName = `ios-search`;
           break;
 
         case "bookmarks":
-          iconName = "ios-home"
+          iconName = "ios-bookmark"
           break;
 
         default:
@@ -78,7 +85,7 @@ const TabNavigator = createBottomTabNavigator({
 const MainStack = createSwitchNavigator({
   "start": AuthManager,
   "auth": LoginStack,
-  "home": TabNavigator
+  "tabs": TabNavigator
 }, {
   initialRouteName: "start"
 })
@@ -99,7 +106,8 @@ export default function App() {
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-      ...Ionicons.font
+      ...Ionicons.font,
+      ...MaterialCommunityIcons.font
     })
     setIsReady(true)
   }
