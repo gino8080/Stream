@@ -1,11 +1,13 @@
 import { Camera } from 'expo-camera';
 //const CommonHeader = require("../../components/CommonHeader")
 import * as Permissions from 'expo-permissions';
+import Constants from "expo-constants";
 import { Button, Container, Content, Spinner, Text, Thumbnail, ActionSheet } from 'native-base';
 import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
-import { Linking, Alert } from "react-native";
+import { Linking, Alert, Platform } from "react-native";
 import CommonHeader from "../../components/CommonHeader";
+import * as IntentLauncher from 'expo-intent-launcher';
 
 const Register = (props) => {
 
@@ -27,7 +29,7 @@ const Register = (props) => {
 
     console.log("permission status", status)
 
-    setHasCameraPermission(status === "granted")
+    setHasCameraPermission(status === "granted*")
   }
 
 
@@ -41,7 +43,21 @@ const Register = (props) => {
       {
         text: 'Vai', onPress: () => {
           console.log("premuto VAI a settings");
-          Linking.openURL('app-settings:');
+
+          if (Platform.OS === "ios") {
+            Linking.openURL('app-settings:');
+
+          } else {
+
+            const pkg = Constants.manifest.releaseChannel
+              ? Constants.manifest.android.package  // When published, considered as using standalone build
+              : "host.exp.exponent"; // In expo client mode
+
+            IntentLauncher.startActivityAsync(
+              IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS,
+              { data: 'package:' + pkg },
+            )
+          }
         }
       },
     ])
