@@ -3,7 +3,7 @@ import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import { Button, Container, Content, Spinner, Text, Thumbnail, ActionSheet } from 'native-base';
 import * as ImagePicker from "expo-image-picker";
-import React from "react";
+import React, { useState } from "react";
 import { Linking, Alert } from "react-native";
 import CommonHeader from "../../components/CommonHeader";
 
@@ -11,7 +11,8 @@ const Register = (props) => {
 
   const [hasCameraPermission, setHasCameraPermission] = React.useState(null);
 
-  const [type, setType] = React.useState(Camera.Constants.Type.back)
+  const [selectedImage, setSelectedImage] = useState({})
+
 
   React.useEffect(() => {
     //allo start del componente 
@@ -19,7 +20,9 @@ const Register = (props) => {
   }, [])
 
   const initCamera = async () => {
-    const perm = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    const perm = await Permissions.askAsync(
+      Permissions.CAMERA, Permissions.CAMERA_ROLL
+    );
     const { status } = perm;
 
     console.log("permission status", status)
@@ -52,15 +55,27 @@ const Register = (props) => {
         cancelButtonIndex: 2,
         //destructiveButtonIndex: 3
       },
-      (indexSelected) => {
+      async (indexSelected) => {
         console.log("Premuta voce index", indexSelected);
         if (indexSelected === 0) {
           //scatta foto
-          ImagePicker.launchCameraAsync()
+          const imageResult = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            mediaTypes: "Images"
+          })
+          setSelectedImage(imageResult)
+
         }
         else if (indexSelected === 1) {
           //Scegli da galleria
-          ImagePicker.launchImageLibraryAsync()
+          ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            mediaTypes: "Images"
+          })
+            .then(imageResult => {
+              console.log("imageResult", imageResult)
+              setSelectedImage(imageResult)
+            })
         }
       }
 
@@ -86,7 +101,8 @@ const Register = (props) => {
           <Thumbnail
             large
             style={{ width: 130, height: 130 }}
-            source={require("../../assets/images/user_placeholder.png")}
+
+            source={selectedImage.uri ? selectedImage : require("../../assets/images/user_placeholder.png")}
           />
 
 
