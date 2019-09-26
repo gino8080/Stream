@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Alert } from "react-native";
 import { Button, Text, Container, Header, Content, Form, Item, Input, Label, Left, Icon, Right, Body, Title, Footer, FooterTab } from 'native-base';
 import CommonHeader from "../../components/CommonHeader"
+import Storage from "../../data/Storage";
 
 const Login = (props) => {
 
@@ -16,6 +17,7 @@ const Login = (props) => {
     if (user.username.toLowerCase().trim() === "admin" &&
       user.password.toLowerCase().trim() === "password") {
       //login ok!
+      Storage.set("isLogged", true);
       props.navigation.navigate("home")
     } else {
       Alert.alert("Errore", "Attenzione credenziali errate!")

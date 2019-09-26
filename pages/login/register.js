@@ -94,9 +94,7 @@ const Register = (props) => {
             })
         }
       }
-
     )
-
   }
 
 
@@ -117,11 +115,8 @@ const Register = (props) => {
           <Thumbnail
             large
             style={{ width: 130, height: 130 }}
-
             source={selectedImage.uri ? selectedImage : require("../../assets/images/user_placeholder.png")}
           />
-
-
           <Button onPress={() => {
             !hasCameraPermission ? goToSetting() : startCamera()
           }}>

@@ -15,6 +15,7 @@ import Reset from "./pages/login/reset";
 import Profile from "./pages/profile/";
 import Search from "./pages/search/index";
 import Bookmarks from "./pages/bookmarks/index";
+import AuthManager from "./pages/AuthManager"
 
 if (__DEV__) {
   // https://github.com/expo/expo/issues/2623#issuecomment-441364587
@@ -32,7 +33,7 @@ const LoginStack = createStackNavigator({
   "register": Register,
   "reset": Reset
 }, {
-  initialRouteName: "register",
+  initialRouteName: "login",
   "headerMode": "none"
 })
 
@@ -75,10 +76,11 @@ const TabNavigator = createBottomTabNavigator({
 })
 
 const MainStack = createSwitchNavigator({
+  "start": AuthManager,
   "auth": LoginStack,
   "home": TabNavigator
 }, {
-  initialRouteName: "auth"
+  initialRouteName: "start"
 })
 
 const AppContainer = createAppContainer(MainStack)
