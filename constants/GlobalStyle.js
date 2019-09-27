@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native"
+import { StyleSheet, Dimensions, Platform } from "react-native"
 import CommonColors from "./CommonColors"
 
 export default GlobalStyle = StyleSheet.create({
@@ -7,6 +7,7 @@ export default GlobalStyle = StyleSheet.create({
     borderWidth: 1
   }
 })
+
 
 export const SIZES = {
   width: Dimensions.get("window").width,
