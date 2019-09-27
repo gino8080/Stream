@@ -17,9 +17,9 @@ const Home = (props) => {
 
 
   const getContents = () => {
-    Services.search().then(_categories => {
+    Services.search().then(_videos => {
       //console.log("_categories", _categories)
-      setCategories(_categories)
+      setCategories(_videos)
     })
 
     /*Services.newReleases().then(_newReleases => {
@@ -45,7 +45,7 @@ const Home = (props) => {
           <FlatList
             style={{ flex: 1, ...GlobalStyle.bordered }}
             horizontal
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.etag}
             data={categories}
             renderItem={({ item }) => (
               <ListItem item={item} onPressed={onPressedItem} />
@@ -54,7 +54,8 @@ const Home = (props) => {
           />
         </Container>
 
-        <Container style={{ flex: 1, height: 300 }}>
+        {/*
+       <Container style={{ flex: 1, height: 300 }}>
           <FlatList
             style={{ flex: 1, ...GlobalStyle.bordered }}
             horizontal
@@ -66,6 +67,7 @@ const Home = (props) => {
             }
           />
         </Container>
+        */}
 
       </Content>
     </Container>
