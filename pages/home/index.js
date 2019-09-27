@@ -8,8 +8,9 @@ import ListItem from "./ListItem";
 
 const Home = (props) => {
 
-  const [categories, setCategories] = React.useState([])
-  const [newReleases, setNewReleases] = React.useState([])
+  const [categoriesIT, setCategoriesIT] = React.useState([])
+  const [categoriesUS, setCategoriesUS] = React.useState([])
+
 
   React.useEffect(() => {
     getContents();
@@ -17,15 +18,17 @@ const Home = (props) => {
 
 
   const getContents = () => {
-    Services.search().then(_videos => {
-      //console.log("_categories", _categories)
-      setCategories(_videos)
+
+    Services.categories().then(_categories => {
+      console.log("_categories", _categories)
+      setCategoriesIT(_categories)
     })
 
-    /*Services.newReleases().then(_newReleases => {
-      //console.log("_newReleases", _newReleases)
-      setNewReleases(_newReleases)
-    })*/
+    Services.categories("US").then(_categories => {
+      console.log("_categories", _categories)
+      setCategoriesUS(_categories)
+    })
+
   }
 
 
@@ -45,8 +48,8 @@ const Home = (props) => {
           <FlatList
             style={{ flex: 1, ...GlobalStyle.bordered }}
             horizontal
-            keyExtractor={(item) => item.etag}
-            data={categories}
+            keyExtractor={(item) => "it" + item.etag}
+            data={categoriesIT}
             renderItem={({ item }) => (
               <ListItem item={item} onPressed={onPressedItem} />
             )
@@ -54,20 +57,20 @@ const Home = (props) => {
           />
         </Container>
 
-        {/*
-       <Container style={{ flex: 1, height: 300 }}>
+
+        <Container style={{ flex: 1, height: 300 }}>
           <FlatList
             style={{ flex: 1, ...GlobalStyle.bordered }}
             horizontal
-            keyExtractor={(item) => item.id}
-            data={newReleases}
+            keyExtractor={(item) => "ex" + item.etag}
+            data={categoriesUS}
             renderItem={({ item }) => (
               <ListItem item={item} onPressed={onPressedItem} />
             )
             }
           />
         </Container>
-        */}
+
 
       </Content>
     </Container>

@@ -10,7 +10,7 @@ const YOUTUBE_KEY = require("../constants/apikey").default;
 
 const defaultParams = {
   part: 'snippet',
-  maxResults: 5,
+  maxResults: 10,
   key: YOUTUBE_KEY
 };
 
@@ -55,6 +55,25 @@ export default Services = {
       .then(function (response) {
         // handle success
         console.log("search ", response);
+
+        return response.items
+
+      })
+  },
+
+  categories: (regionCode = "IT") => {
+
+    return GLOBAL_API.get("/videos", {
+      params: {
+        ...defaultParams,
+        hl: "it_IT",
+        regionCode,
+        chart: "mostPopular"
+      }
+    })
+      .then(function (response) {
+        // handle success
+        console.log("categories ", response);
 
         return response.items
 
