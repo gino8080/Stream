@@ -1,7 +1,10 @@
 import React from "react";
 import { View, Image, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
-import { Container, Text } from "native-base";
+import { Container, Text, Icon } from "native-base";
 import { SIZES } from "../../constants/GlobalStyle"
+import { addBookmark } from "../../data/Database";
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from "react-navigation-hooks"
 
 const defaultItem = {
   "kind": "youtube#searchResult",
@@ -31,17 +34,32 @@ const defaultItem = {
   }
 }
 
-const ListItem = ({ item = defaultItem, onPressed = () => { console.log("press") } }) => {
+const ListItem = ({ item, onPressed = null }) => {
 
-  const imageUrl = item.snippet.thumbnails.medium.url
+  const navigation = useNavigation();
+
+  const imageUrl = item.image ? item.image : item.snippet ? item.snippet.thumbnails.medium.url : "https://yt3.ggpht.com/-e-WNAh0RjFI/AAAAAAAAAAI/AAAAAAAAAAA/TJ46bU8uO9Q/s800-c-k-no-mo-rj-c0xffffff/photo.jpg";
+
+
+  const internalPress = () => {
+    if (onPressed) onPressed(item)
+    else navigation.navigate("video", { currentVideo: item })
+  }
+
+  const toggleBookmark = (item) => {
+    addBookmark(item)
+  }
+
   return (
-    <TouchableOpacity onPress={() => onPressed(item)}
-      style={styles.item} >
-      <Container >
-        <Image source={{ uri: imageUrl }} style={{ flex: 1 }} />
-        <Text style={styles.title}>{item.snippet.title}</Text>
-      </Container>
-    </TouchableOpacity>
+
+    <Container style={styles.item}>
+      <TouchableOpacity onPress={internalPress} style={{ flex: 1 }}  >
+        <Image source={{ uri: imageUrl }} style={styles.image} />
+        <Text style={styles.title}>{item.title || item.snippet.title}</Text>
+      </TouchableOpacity>
+      <Ionicons name="ios-heart" onPress={() => toggleBookmark(item)} color="grey" style={{ position: "absolute", fontSize: 40, bottom: 0, right: 0 }} />
+    </Container>
+
   )
 
 }
@@ -51,6 +69,12 @@ const styles = StyleSheet.create({
     width: SIZES.width,
     height: SIZES.height * .3,
     marginBottom: 5
+  },
+
+  image: {
+    flex: 1,
+    width: SIZES.width,
+    height: SIZES.height * .3,
   },
   title: {
     position: "absolute",
