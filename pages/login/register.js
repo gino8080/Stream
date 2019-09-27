@@ -5,7 +5,7 @@ import Constants from "expo-constants";
 import { Button, Container, Content, Spinner, Text, Thumbnail, ActionSheet } from 'native-base';
 import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
-import { Linking, Alert, Platform } from "react-native";
+import { Linking, Alert, Platform, Animated, Easing, Image } from "react-native";
 import CommonHeader from "../../components/CommonHeader";
 import * as IntentLauncher from 'expo-intent-launcher';
 
@@ -15,11 +15,22 @@ const Register = (props) => {
 
   const [selectedImage, setSelectedImage] = useState({})
 
+  const [size, setSize] = useState(new Animated.Value(0))
 
   React.useEffect(() => {
     //allo start del componente 
     initCamera()
+
   }, [])
+
+  const startAnimation = () => {
+    Animated.timing(size, {
+      toValue: 200,
+      duration: 3 * 1000,
+      easing: Easing.bounce,
+      delay: 1000
+    }).start();
+  }
 
   const initCamera = async () => {
     const perm = await Permissions.askAsync(
@@ -65,6 +76,7 @@ const Register = (props) => {
   }
 
   startCamera = () => {
+    startAnimation();
     ActionSheet.show(
       {
         options: ['Scatta foto', 'scegli da galleria', 'Annulla'],
@@ -101,8 +113,10 @@ const Register = (props) => {
 
   //non so ancora se ho il permesso
   if (hasCameraPermission === null) {
-    return <Spinner />
+    //return <Spinner />
   }
+
+  const AnimatedButton = Animated.createAnimatedComponent(Button)
 
   return (
     <Container>
@@ -112,16 +126,17 @@ const Register = (props) => {
       <Content scrollEnabled={false} padder>
         <Container
           style={{ alignItems: "center" }}>
-          <Thumbnail
-            large
+
+          <Animated.Image
+
             style={{ width: 130, height: 130 }}
             source={selectedImage.uri ? selectedImage : require("../../assets/images/user_placeholder.png")}
           />
-          <Button onPress={() => {
+          <AnimatedButton style={{ position: "absolute", top: size }} onPress={() => {
             !hasCameraPermission ? goToSetting() : startCamera()
           }}>
             <Text>Scegli / scatta foto</Text>
-          </Button>
+          </AnimatedButton>
 
         </Container>
 

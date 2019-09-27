@@ -35,7 +35,7 @@ const LoginStack = createStackNavigator({
   "register": Register,
   "reset": Reset
 }, {
-  initialRouteName: "login",
+  initialRouteName: "register",
   "headerMode": "none"
 })
 
