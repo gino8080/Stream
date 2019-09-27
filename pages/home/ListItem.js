@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import { Container, Text } from "native-base";
 
 const defaultItem =
@@ -16,14 +16,17 @@ const defaultItem =
   "name": "Top Lists"
 }
 
-const ListItem = ({ item = defaultItem }) => {
+const ListItem = ({ item = defaultItem, onPressed = () => { console.log("press") } }) => {
 
   const imageUrl = item.icons ? item.icons[0].url : item.images[0].url
   return (
-    <Container style={{ width: 200, height: "auto", ...GlobalStyle.bordered }}>
-      <Image source={{ uri: imageUrl }} style={{ flex: 1 }} />
-      <Text>{item.name}</Text>
-    </Container>
+    <TouchableOpacity onPress={() => onPressed(item)}
+      style={{ width: 200, height: "auto", marginRight: 5, ...GlobalStyle.bordered }} >
+      <Container >
+        <Image source={{ uri: imageUrl }} style={{ flex: 1 }} />
+        <Text style={{ position: "absolute", top: 5, color: "white", ...GlobalStyle.bordered, width: "100%", textAlign: "center" }}>{item.name}</Text>
+      </Container>
+    </TouchableOpacity>
   )
 
 }

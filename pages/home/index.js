@@ -18,15 +18,22 @@ const Home = (props) => {
 
   const getContents = () => {
     Services.categories().then(_categories => {
-      console.log("_categories", _categories)
+      //console.log("_categories", _categories)
       setCategories(_categories)
     })
 
     Services.newReleases().then(_newReleases => {
-      console.log("_newReleases", _newReleases)
+      //console.log("_newReleases", _newReleases)
       setNewReleases(_newReleases)
     })
   }
+
+
+  const onPressedItem = (pressedItem) => {
+    console.log("onPressedItem", pressedItem)
+  }
+
+
   return (
     <Container>
 
@@ -38,8 +45,11 @@ const Home = (props) => {
           <FlatList
             style={{ flex: 1, ...GlobalStyle.bordered }}
             horizontal
+            keyExtractor={(item) => item.id}
             data={categories}
-            renderItem={({ item }) => (<ListItem item={item} />)
+            renderItem={({ item }) => (
+              <ListItem item={item} onPressed={onPressedItem} />
+            )
             }
           />
         </Container>
@@ -48,8 +58,11 @@ const Home = (props) => {
           <FlatList
             style={{ flex: 1, ...GlobalStyle.bordered }}
             horizontal
+            keyExtractor={(item) => item.id}
             data={newReleases}
-            renderItem={({ item }) => (<ListItem item={item} />)
+            renderItem={({ item }) => (
+              <ListItem item={item} onPressed={onPressedItem} />
+            )
             }
           />
         </Container>
