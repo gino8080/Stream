@@ -14,6 +14,7 @@ import Register from "./pages/login/register";
 import Reset from "./pages/login/reset";
 import Profile from "./pages/profile/";
 import Search from "./pages/search/index";
+import Video from "./pages/video";
 import Bookmarks from "./pages/bookmarks/index";
 import Home from "./pages/home";
 import AuthManager from "./pages/AuthManager"
@@ -38,13 +39,14 @@ const LoginStack = createStackNavigator({
   "headerMode": "none"
 })
 
+
 const TabNavigator = createBottomTabNavigator({
   "home": Home,
   "search": Search,
   "bookmarks": Bookmarks,
   "profile": Profile
 }, {
-  "initialRouteName": "search",
+  "initialRouteName": "home",
   defaultNavigationOptions: ({ navigation }) => ({
     tabBarIcon: ({ focused, horizontal, tintColor }) => {
       const { routeName } = navigation.state;
@@ -82,10 +84,19 @@ const TabNavigator = createBottomTabNavigator({
   },
 })
 
+
+const MainNavigator = createStackNavigator({
+  "tabs": TabNavigator,
+  "video": Video
+}, {
+  headerMode: 'none',
+  mode: "modal"
+})
+
 const MainStack = createSwitchNavigator({
   "start": AuthManager,
   "auth": LoginStack,
-  "tabs": TabNavigator
+  "main": MainNavigator
 }, {
   initialRouteName: "start"
 })

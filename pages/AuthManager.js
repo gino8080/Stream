@@ -14,7 +14,7 @@ const AuthManager = (props) => {
 
     let targetPage = "auth"
     if (isLogged) {
-      targetPage = "home";
+      targetPage = "main";
     }
 
     props.navigation.navigate(targetPage)

@@ -8,10 +8,9 @@ import ListItem from "./ListItem";
 
 const Home = (props) => {
 
-  const [categoriesIT, setCategoriesIT] = React.useState([])
-  const [categoriesUS, setCategoriesUS] = React.useState([])
-  const [categoriesJP, setCategoriesJP] = React.useState([])
-
+  const [categoriesIT, setCategoriesIT] = React.useState([]);
+  const [categoriesUS, setCategoriesUS] = React.useState([]);
+  const [categoriesJP, setCategoriesJP] = React.useState([]);
 
   React.useEffect(() => {
     getContents();
@@ -40,6 +39,7 @@ const Home = (props) => {
 
   const onPressedItem = (pressedItem) => {
     console.log("onPressedItem", pressedItem)
+    props.navigation.navigate("video")
   }
 
 
@@ -47,7 +47,6 @@ const Home = (props) => {
     <Container>
 
       <CommonHeader title="Home" />
-
 
       <Tabs>
         <Tab heading="Italia" >
@@ -59,11 +58,12 @@ const Home = (props) => {
               data={categoriesIT}
               renderItem={({ item }) => (
                 <ListItem item={item} onPressed={onPressedItem} />
-              )
-              }
+              )}
             />
           </Container>
+
         </Tab>
+
         <Tab heading="Estero">
           <Container style={{ flex: 1 }}>
             <FlatList
@@ -78,6 +78,7 @@ const Home = (props) => {
             />
           </Container>
         </Tab>
+
         <Tab heading="Oriente">
           <Container style={{ flex: 1 }}>
             <FlatList
@@ -92,6 +93,7 @@ const Home = (props) => {
             />
           </Container>
         </Tab>
+
       </Tabs>
 
     </Container>

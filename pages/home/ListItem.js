@@ -39,7 +39,7 @@ const ListItem = ({ item = defaultItem, onPressed = () => { console.log("press")
       style={styles.item} >
       <Container >
         <Image source={{ uri: imageUrl }} style={{ flex: 1 }} />
-        <Text style={{ position: "absolute", top: 5, color: "white", width: "100%", textAlign: "center" }}>{item.snippet.title}</Text>
+        <Text style={styles.title}>{item.snippet.title}</Text>
       </Container>
     </TouchableOpacity>
   )
@@ -50,7 +50,17 @@ const styles = StyleSheet.create({
   item: {
     width: SIZES.width,
     height: SIZES.height * .3,
-    marginRight: 5
+    marginBottom: 5
+  },
+  title: {
+    position: "absolute",
+    top: 0,
+    backgroundColor: "black",
+    padding: 5,
+    opacity: .8,
+    color: "white",
+    width: "100%",
+    textAlign: "center"
   }
 })
 
