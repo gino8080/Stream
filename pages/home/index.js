@@ -1,8 +1,8 @@
-import { Container, Content, Text } from 'native-base';
+import { Container, Content, Text, Tab, Tabs, ScrollableTab } from 'native-base';
 import React from "react";
 import { FlatList } from "react-native"
 import CommonHeader from "../../components/CommonHeader";
-import GlobalStyle from "../../constants/GlobalStyle"
+
 import Services from "../../data/Services";
 import ListItem from "./ListItem";
 
@@ -10,6 +10,7 @@ const Home = (props) => {
 
   const [categoriesIT, setCategoriesIT] = React.useState([])
   const [categoriesUS, setCategoriesUS] = React.useState([])
+  const [categoriesJP, setCategoriesJP] = React.useState([])
 
 
   React.useEffect(() => {
@@ -29,6 +30,11 @@ const Home = (props) => {
       setCategoriesUS(_categories)
     })
 
+    Services.categories("JP").then(_categories => {
+      console.log("_categories", _categories)
+      setCategoriesJP(_categories)
+    })
+
   }
 
 
@@ -42,37 +48,52 @@ const Home = (props) => {
 
       <CommonHeader title="Home" />
 
-      <Content scrollEnabled={false}>
-        <Container style={{ flex: 1, height: 300 }}>
 
-          <FlatList
-            style={{ flex: 1, ...GlobalStyle.bordered }}
-            horizontal
-            keyExtractor={(item) => "it" + item.etag}
-            data={categoriesIT}
-            renderItem={({ item }) => (
-              <ListItem item={item} onPressed={onPressedItem} />
-            )
-            }
-          />
-        </Container>
+      <Tabs>
+        <Tab heading="Italia" >
+          <Container style={{ flex: 1 }}>
+            <FlatList
+              style={{ flex: 1 }}
+              // horizontal
+              keyExtractor={(item) => "it" + item.etag}
+              data={categoriesIT}
+              renderItem={({ item }) => (
+                <ListItem item={item} onPressed={onPressedItem} />
+              )
+              }
+            />
+          </Container>
+        </Tab>
+        <Tab heading="Estero">
+          <Container style={{ flex: 1 }}>
+            <FlatList
+              style={{ flex: 1 }}
+              // horizontal
+              keyExtractor={(item) => "ex" + item.etag}
+              data={categoriesUS}
+              renderItem={({ item }) => (
+                <ListItem item={item} onPressed={onPressedItem} />
+              )
+              }
+            />
+          </Container>
+        </Tab>
+        <Tab heading="Oriente">
+          <Container style={{ flex: 1 }}>
+            <FlatList
+              style={{ flex: 1 }}
+              // horizontal
+              keyExtractor={(item) => "ex" + item.etag}
+              data={categoriesJP}
+              renderItem={({ item }) => (
+                <ListItem item={item} onPressed={onPressedItem} />
+              )
+              }
+            />
+          </Container>
+        </Tab>
+      </Tabs>
 
-
-        <Container style={{ flex: 1, height: 300 }}>
-          <FlatList
-            style={{ flex: 1, ...GlobalStyle.bordered }}
-            horizontal
-            keyExtractor={(item) => "ex" + item.etag}
-            data={categoriesUS}
-            renderItem={({ item }) => (
-              <ListItem item={item} onPressed={onPressedItem} />
-            )
-            }
-          />
-        </Container>
-
-
-      </Content>
     </Container>
 
   )

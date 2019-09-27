@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import { Container, Text } from "native-base";
+import { SIZES } from "../../constants/GlobalStyle"
 
 const defaultItem = {
   "kind": "youtube#searchResult",
@@ -35,14 +36,22 @@ const ListItem = ({ item = defaultItem, onPressed = () => { console.log("press")
   const imageUrl = item.snippet.thumbnails.medium.url
   return (
     <TouchableOpacity onPress={() => onPressed(item)}
-      style={{ width: 200, height: "auto", marginRight: 5, ...GlobalStyle.bordered }} >
+      style={styles.item} >
       <Container >
         <Image source={{ uri: imageUrl }} style={{ flex: 1 }} />
-        <Text style={{ position: "absolute", top: 5, color: "white", ...GlobalStyle.bordered, width: "100%", textAlign: "center" }}>{item.snippet.title}</Text>
+        <Text style={{ position: "absolute", top: 5, color: "white", width: "100%", textAlign: "center" }}>{item.snippet.title}</Text>
       </Container>
     </TouchableOpacity>
   )
 
 }
+
+const styles = StyleSheet.create({
+  item: {
+    width: SIZES.width,
+    height: SIZES.height * .3,
+    marginRight: 5
+  }
+})
 
 export default ListItem;
