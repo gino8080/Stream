@@ -39,7 +39,7 @@ const Home = (props) => {
 
   const onPressedItem = (pressedItem) => {
     console.log("onPressedItem", pressedItem)
-    props.navigation.navigate("video")
+    props.navigation.navigate("video", { currentVideo: pressedItem })
   }
 
 
