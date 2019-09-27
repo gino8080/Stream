@@ -17,15 +17,15 @@ const Home = (props) => {
 
 
   const getContents = () => {
-    Services.categories().then(_categories => {
+    Services.search().then(_categories => {
       //console.log("_categories", _categories)
       setCategories(_categories)
     })
 
-    Services.newReleases().then(_newReleases => {
+    /*Services.newReleases().then(_newReleases => {
       //console.log("_newReleases", _newReleases)
       setNewReleases(_newReleases)
-    })
+    })*/
   }
 
 
